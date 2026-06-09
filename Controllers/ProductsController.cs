@@ -7,23 +7,23 @@ namespace StorageApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StorageController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly StorageContext _context;
 
-        public StorageController(StorageContext context)
+        public ProductsController(StorageContext context)
         {
             _context = context;
         }
 
-        // GET: api/Storage
+        // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
             return await _context.Product.ToListAsync();
         }
 
-        // GET: api/Storage/5
+        // GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -37,7 +37,7 @@ namespace StorageApi.Controllers
             return product;
         }
 
-        // PUT: api/Storage/5
+        // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product product)
@@ -68,7 +68,7 @@ namespace StorageApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Storage
+        // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
@@ -76,10 +76,10 @@ namespace StorageApi.Controllers
             _context.Product.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProduct", new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
 
-        // DELETE: api/Storage/5
+        // DELETE: api/Products/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
